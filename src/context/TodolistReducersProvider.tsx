@@ -5,12 +5,17 @@ import {DefaultActionType, DefaultStateType, TodoListReducer} from "./TodoListRe
 
 const RootStateContextProvider = createContext<RootStateType | undefined>(undefined)
 const RootDispatchContextProvider = createContext<RootDispatchType | undefined>(undefined)
-type RootDispatchType = (action: DefaultTaskReducerAction | DefaultActionType) => void
+type RootDispatchType = {
+    task: (action: DefaultTaskReducerAction ) => void
+    todo: (action: DefaultActionType) => void
+}
 type RootStateType = {
     task: TaskReducerDefaultStateType
     todo: DefaultStateType[]
 }
-
+type ProviderPropsType = {
+    children: React.ReactNode
+}
 const initTasksState:TaskReducerDefaultStateType = {
     ["todolistId1"]: [
         {id: v1(), title: "HTML&CSS", isDone: true},
@@ -28,12 +33,16 @@ const initTodoState:DefaultStateType[] = [
     {id: "todolistId1", title: "What to learn", filter: "all"},
     {id: "todolistId2", title: "What to buy", filter: "all"}
 ]
-export const TodolistReducersProvider = ({children}:any) => {
-    const [task, taskDisptach] = useReducer(TaskReducer, initTasksState)
+export const TodolistReducersProvider = ({children}:ProviderPropsType) => {
+    const [task, taskDispatch] = useReducer(TaskReducer, initTasksState)
     const [todo, todoDispatch] = useReducer(TodoListReducer, initTodoState)
     return (
         <RootStateContextProvider.Provider value={{task: task, todo: todo}}>
-            <RootDispatchContextProvider.Provider value={{task: taskDisptach,todo: todoDispatch}}>
+            <RootDispatchContextProvider.Provider value={
+                {
+                    task: taskDispatch,
+                    todo: todoDispatch
+                }}>
                 {children}
             </RootDispatchContextProvider.Provider>
         </RootStateContextProvider.Provider>
