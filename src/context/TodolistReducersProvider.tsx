@@ -30,14 +30,18 @@ const initTasksState:TaskReducerDefaultStateType = {
 
 }
 const initTodoState:DefaultStateType[] = [
-    {id: "todolistId1", title: "What to learn", filter: "all"},
+    {id: "todolistId1", title: "What to learn", filter: "complete"},
     {id: "todolistId2", title: "What to buy", filter: "all"}
 ]
 export const TodolistReducersProvider = ({children}:ProviderPropsType) => {
     const [task, taskDispatch] = useReducer(TaskReducer, initTasksState)
     const [todo, todoDispatch] = useReducer(TodoListReducer, initTodoState)
     return (
-        <RootStateContextProvider.Provider value={{task: task, todo: todo}}>
+        <RootStateContextProvider.Provider value={
+            {
+                task: task,
+                todo: todo
+            }}>
             <RootDispatchContextProvider.Provider value={
                 {
                     task: taskDispatch,
@@ -49,3 +53,17 @@ export const TodolistReducersProvider = ({children}:ProviderPropsType) => {
     );
 };
 
+export function useStateContext(){
+    const context = useContext(RootStateContextProvider)
+    if (context === undefined) {
+        throw new Error('useStateContext must be used within a CountProvider')
+    }
+    return context
+}
+export function useDispatchContext(){
+    const context = useContext(RootDispatchContextProvider)
+    if (context === undefined) {
+        throw new Error('useDispatchContext must be used within a CountProvider')
+    }
+    return context
+}

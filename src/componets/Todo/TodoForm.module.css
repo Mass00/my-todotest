@@ -1,3 +1,7 @@
+.container {
+    margin: 10px;
+    background: teal;
+}
 .container input{
     outline: none;
     width: 100%;

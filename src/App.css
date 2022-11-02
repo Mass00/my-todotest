@@ -12,5 +12,6 @@
 }
 
 .App {
-    background-color: teal;
+    display: flex;
+    justify-content: left;
 }
