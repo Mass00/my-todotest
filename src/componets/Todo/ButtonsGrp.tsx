@@ -8,9 +8,9 @@ type ButtonsGrpPropsType = {
     todoId: string
 }
 export const ButtonsGrp = ({filter,todoId}: ButtonsGrpPropsType) => {
-    const {todo} = useDispatchContext()
+    const {todoDisp} = useDispatchContext()
     const onClickChangeFilterHandler = (filter: FilterType) => {
-        todo(changeFilterAC(todoId,filter))
+        todoDisp(changeFilterAC(todoId,filter))
     }
     return (
         <div className={st.container}>

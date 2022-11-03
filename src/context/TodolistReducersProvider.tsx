@@ -6,8 +6,8 @@ import {DefaultActionType, DefaultStateType, TodoListReducer} from "./TodoListRe
 const RootStateContextProvider = createContext<RootStateType | undefined>(undefined)
 const RootDispatchContextProvider = createContext<RootDispatchType | undefined>(undefined)
 type RootDispatchType = {
-    task: (action: DefaultTaskReducerAction ) => void
-    todo: (action: DefaultActionType) => void
+    taskDisp: (action: DefaultTaskReducerAction ) => void
+    todoDisp: (action: DefaultActionType) => void
 }
 type RootStateType = {
     task: TaskReducerDefaultStateType
@@ -44,8 +44,8 @@ export const TodolistReducersProvider = ({children}:ProviderPropsType) => {
             }}>
             <RootDispatchContextProvider.Provider value={
                 {
-                    task: taskDispatch,
-                    todo: todoDispatch
+                    taskDisp: taskDispatch,
+                    todoDisp: todoDispatch
                 }}>
                 {children}
             </RootDispatchContextProvider.Provider>
